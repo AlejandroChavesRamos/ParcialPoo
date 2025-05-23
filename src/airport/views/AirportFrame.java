@@ -9,6 +9,7 @@ import airport.controllers.LocationController;
 import airport.controllers.PassengerController;
 import airport.controllers.PlaneController;
 import airport.controllers.utils.Response;
+import airport.models.Location;
 import airport.models.Passenger;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
@@ -1683,7 +1684,21 @@ public class AirportFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_RefresShowPlanesActionPerformed
 
     private void RefreshShowLocationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshShowLocationsActionPerformed
-        ShowLocationsTable.setModel(LocationC.toLocationsJTable());
+        Response response = LocationController.showAllLocations();
+        DefaultTableModel model = (DefaultTableModel) ShowLocationsTable.getModel();
+        
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+        }else{
+            ArrayList<Location> locations = (ArrayList<Location>) response.getObject();
+            for (Location location : locations) {
+                model.addRow(new Object[]{location.getAirportId(), location.getAirportName(), location.getAirportCity(), location.getAirportCountry()});
+            }
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Response Message", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
     }//GEN-LAST:event_RefreshShowLocationsActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed

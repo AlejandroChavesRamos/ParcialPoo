@@ -4,9 +4,13 @@
  */
 package airport.controllers;
 
+import airport.controllers.utils.Response;
+import airport.controllers.utils.Status;
 import airport.models.Location;
 import airport.models.storage.LocationStorage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,40 +18,11 @@ import javax.swing.table.DefaultTableModel;
  * @author alejo
  */
 public class LocationController {
-    private static LocationStorage locationS;
-    
-    public LocationController() throws IOException{
-        locationS = new LocationStorage();
-    }
-    
-    public void createLocation(String airportId, String airportName, String airportCity, String airportCountry, double airportLatitude, double airportLongitude){
-        Location location = new Location(airportId, airportName, airportCity, airportCountry, airportLatitude, airportLongitude);
-        locationS.getLocation().add(location);
-    }
-    
-    public Location getIdLocation(String id){
-        for(Location location: locationS.getLocation()){
-            if(location.getAirportId().equals(id)){
-                return location;
-            }
-        }
-        return null;
-    }
-    
-    public DefaultTableModel toLocationsJTable(){
-        String[] columnas = {"Airport ID", "Airport Name", "City", "Country"};
-        DefaultTableModel model = new DefaultTableModel(columnas, 0); 
+    public static Response showAllLocations(){
+        LocationStorage storage = LocationStorage.getInstance();
+        ArrayList<Location> locations = storage.getLocation();
         
-        if(locationS.getLocation().isEmpty()){
-            System.out.println("Lista Vacia");
-        } else{
-            for(Location location : locationS.getLocation()){
-                Object[] fila = new Object[] {
-                    location.getAirportId(), location.getAirportName(), location.getAirportCity(), location.getAirportCountry()
-                };
-                model.addRow(fila);
-            }
-        }
-        return model;
+        locations.sort(Comparator.comparing(Location::getAirportId));
+        return new Response("Localizaciones actualizadas", Status.Ok, locations);
     }
 }

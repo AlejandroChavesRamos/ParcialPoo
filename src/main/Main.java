@@ -4,6 +4,7 @@
  */
 package main;
 
+import airport.models.storage.json.LocationJson;
 import airport.models.storage.json.PassengerJson;
 import airport.views.AirportFrame;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -20,7 +21,7 @@ public class Main {
     public static void main(String[] args){
 
         PassengerJson.readPassengers("json/passengers.json");
-        
+        LocationJson.readLocation("json/locations.json");
                 
         System.setProperty("flatlaf.useNativeLibrary", "false");
 
