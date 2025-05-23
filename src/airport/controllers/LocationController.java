@@ -23,6 +23,16 @@ public class LocationController {
         ArrayList<Location> locations = storage.getLocation();
         
         locations.sort(Comparator.comparing(Location::getAirportId));
-        return new Response("Localizaciones actualizadas", Status.Ok, locations);
+        ArrayList<Object[]> data = new ArrayList<>();
+        for (Location l : locations) {
+            data.add(new Object[]{
+                l.getAirportId(),
+                l.getAirportName(),
+                l.getAirportCity(),
+                l.getAirportCountry()
+                
+            });
+        }
+        return new Response("Localizaciones actualizados", Status.Ok, data);
     }
 }

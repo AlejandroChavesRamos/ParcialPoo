@@ -15,15 +15,31 @@ import java.util.ArrayList;
  */
 public class PlaneStorage {
      //Creo lista
-    private static ArrayList<Plane> planes = new ArrayList();
-
-    public PlaneStorage() throws IOException {
-        planes = readPlanes("json/Planes.json");
+    private ArrayList<Plane> planes = new ArrayList();
+    private static PlaneStorage instance;
+    //Aplico singleton
+    public static PlaneStorage getInstance(){
+        if (instance == null) {
+            instance = new PlaneStorage();
+        }
+        return instance;
     }
-    
-    public static ArrayList<Plane> getPlane() {
+
+    public ArrayList<Plane> getPlanes() {
         return planes;
     }
-
+    
+    public boolean AddPlane(Plane plane){
+        for (Plane p : this.planes) {
+            if (p.getId().equals(plane.getId())) {
+                return false;
+            }
+        }
+        this.planes.add(plane);
+        return true;  
+    }
+    
+    
+    
    
 }

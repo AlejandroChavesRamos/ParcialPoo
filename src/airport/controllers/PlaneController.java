@@ -4,9 +4,13 @@
  */
 package airport.controllers;
 
+import airport.controllers.utils.Response;
+import airport.controllers.utils.Status;
 import airport.models.Plane;
 import airport.models.storage.PlaneStorage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,40 +18,24 @@ import javax.swing.table.DefaultTableModel;
  * @author alejo
  */
 public class PlaneController {
-    private static PlaneStorage planeS;
-    
-    public PlaneController() throws IOException {
-        planeS = new PlaneStorage();
-    }
-    
-    public void createPlane(String id, String brand, String model, int maxCapacity, String airline){
-        Plane plane = new Plane(id, brand, model, maxCapacity, airline);
-        planeS.getPlane().add(plane);
-    }
-    
-    public Plane getIdPlane(String id){
-        for(Plane plane: planeS.getPlane()){
-            if(plane.getId().equals(id)){
-                return plane;
-            }
-        }
-        return null;
-    }
-    
-    public DefaultTableModel toPlanesJTable(){
-        String[] columnas = {"ID", "Brand", "Model", "Max Capacity", "Airline", "Number Flights"};
-        DefaultTableModel model = new DefaultTableModel(columnas, 0); 
+    public static Response showAllPlane(){
+        PlaneStorage storage = PlaneStorage.getInstance();
+        ArrayList<Plane> planes = storage.getPlanes();
         
-        if(planeS.getPlane().isEmpty()){
-            System.out.println("Lista Vacia");
-        } else{
-            for(Plane plane : planeS.getPlane()){
-                Object[] fila = new Object[] {
-                    plane.getId(), plane.getBrand(), plane.getModel(), plane.getMaxCapacity(), plane.getAirline(), plane.getNumFlights()
-                };
-                model.addRow(fila);
-            }
+        planes.sort(Comparator.comparing(Plane::getId));
+        ArrayList<Object[]> data = new ArrayList<>();
+        for(Plane p: planes){
+            data.add(new Object[]{
+               p.getId(),
+               p.getBrand(),
+               p.getModel(),
+               p.getMaxCapacity(),
+               p.getAirline(),
+               p.getNumFlights()
+                    
+            });
         }
-        return model;
+        
+        return new Response("Aviones actualizadas", Status.Ok, data);
     }
 }

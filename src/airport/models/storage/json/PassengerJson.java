@@ -25,7 +25,7 @@ public class PassengerJson {
     public static void readPassengers(String path) {
         try{
             PassengerStorage storage = PassengerStorage.getInstance();
-            String content = Files.readString(Paths.get(path));
+            String content = Files.readString(Paths.get(path), StandardCharsets.UTF_8);
             JSONArray array  = new JSONArray(content);
 
 

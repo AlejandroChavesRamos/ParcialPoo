@@ -49,7 +49,20 @@ public class PassengerController {
         
         
         passengers.sort(Comparator.comparing(Passenger::getId));
-        return new Response("Pasajeros actualizados", Status.Ok, passengers);
+        ArrayList<Object[]> data = new ArrayList<>();
+        for (Passenger p : passengers) {
+            data.add(new Object[]{
+                p.getId(),
+                p.getFullname(),
+                p.getBirthDate(),
+                p.calculateAge(),
+                p.getPhone(),
+                p.getCountry(),
+                p.getNumFlights()
+            });
+        }
+        
+        return new Response("Pasajeros actualizados", Status.Ok, data);
         
         
     }
