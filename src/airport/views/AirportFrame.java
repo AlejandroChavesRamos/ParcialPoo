@@ -8,12 +8,15 @@ package airport.views;
 import airport.controllers.LocationController;
 import airport.controllers.PassengerController;
 import airport.controllers.PlaneController;
+import airport.controllers.utils.Response;
+import airport.models.Passenger;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,9 +31,11 @@ public class AirportFrame extends javax.swing.JFrame {
      */
     private int x, y;
     PassengerController PassengerC = new PassengerController();
+    
+    
     PlaneController PlaneC = new PlaneController();
     LocationController LocationC = new LocationController();
-
+    
     public AirportFrame() throws IOException {
         initComponents();
         
@@ -44,6 +49,7 @@ public class AirportFrame extends javax.swing.JFrame {
         this.generateHours();
         this.generateMinutes();
         this.blockPanels();
+        
     }
 
     private void blockPanels() {
@@ -193,7 +199,7 @@ public class AirportFrame extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ShowPassangerTable = new javax.swing.JTable();
+        ShowPassengerTable = new javax.swing.JTable();
         RefreshShowAllPassengers = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -988,8 +994,8 @@ public class AirportFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Show my flights", jPanel7);
 
-        ShowPassangerTable.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        ShowPassangerTable.setModel(new javax.swing.table.DefaultTableModel(
+        ShowPassengerTable.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        ShowPassengerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1012,7 +1018,7 @@ public class AirportFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(ShowPassangerTable);
+        jScrollPane2.setViewportView(ShowPassengerTable);
 
         RefreshShowAllPassengers.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         RefreshShowAllPassengers.setText("Refresh");
@@ -1651,7 +1657,21 @@ public class AirportFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void RefreshShowAllPassengersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshShowAllPassengersActionPerformed
-        ShowPassangerTable.setModel(PassengerC.toPassengersJTable());
+        Response response = PassengerController.showAllPassengers();
+        DefaultTableModel model = (DefaultTableModel) ShowPassengerTable.getModel();
+        model.setRowCount(0);
+        
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+        } else {
+            ArrayList<Passenger> passengers = (ArrayList<Passenger>) response.getObject();
+            for (Passenger passenger : passengers) {
+                model.addRow(new Object[]{passenger.getId(), passenger.getFullname(), passenger.getBirthDate(), passenger.calculateAge(), passenger.getPhone(), passenger.getCountry(), passenger.getNumFlights()});
+            }
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Response Message", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_RefreshShowAllPassengersActionPerformed
 
     private void RefreshShowFlightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshShowFlightsActionPerformed
@@ -1669,7 +1689,9 @@ public class AirportFrame extends javax.swing.JFrame {
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton13ActionPerformed
-
+    
+    
+    
     private void userSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSelectActionPerformed
         try {
             String id = userSelect.getSelectedItem().toString();
@@ -1684,7 +1706,7 @@ public class AirportFrame extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_userSelectActionPerformed
-
+    
     private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField20ActionPerformed
@@ -1716,6 +1738,7 @@ public class AirportFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Create_LocationRegistration;
@@ -1750,7 +1773,7 @@ public class AirportFrame extends javax.swing.JFrame {
     private javax.swing.JButton RegisterPassenger;
     private javax.swing.JTable ShowFlightsTable;
     private javax.swing.JTable ShowLocationsTable;
-    private javax.swing.JTable ShowPassangerTable;
+    private javax.swing.JTable ShowPassengerTable;
     private javax.swing.JTable ShowPlanesTable;
     private javax.swing.JRadioButton administrator;
     private javax.swing.JButton jButton1;

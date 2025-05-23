@@ -15,15 +15,35 @@ import java.util.ArrayList;
  */
 public class PassengerStorage {
     //Creo lista
-    private static ArrayList<Passenger> passengers = new ArrayList();
-
-    public PassengerStorage() throws IOException {
-        passengers = readPassengers("json/passengers.json");
-    }
+    private ArrayList<Passenger> passengers = new ArrayList();
     
-    public static ArrayList<Passenger> getPassengers() {
+    private static PassengerStorage instance;
+    
+    
+    
+    public ArrayList<Passenger> getPassengers() {
         return passengers;
     }
+
+    public static PassengerStorage getInstance(){
+        if (instance == null) {
+            instance = new PassengerStorage();
+        }
+        return instance;
+    }
+    
+    
+    public boolean AddPassenger(Passenger passenger){
+        for (Passenger p : this.passengers) {
+            if (p.getId() == passenger.getId()) {
+                return false;
+            }
+        }
+        this.passengers.add(passenger);
+        return true;
+        
+    }
+    
 
    
 

@@ -4,6 +4,7 @@
  */
 package main;
 
+import airport.models.storage.json.PassengerJson;
 import airport.views.AirportFrame;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.io.IOException;
@@ -16,7 +17,11 @@ import javax.swing.UIManager;
  * @author alejo
  */
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
+
+        PassengerJson.readPassengers("json/passengers.json");
+        
+                
         System.setProperty("flatlaf.useNativeLibrary", "false");
 
         try {
@@ -34,5 +39,7 @@ public class Main {
                 }
             }
         });
+        
+        
     }
 }
