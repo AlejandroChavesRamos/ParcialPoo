@@ -36,6 +36,6 @@ public class PlaneController {
             });
         }
         
-        return new Response("Aviones actualizadas", Status.Ok, data);
+        return new Response("Aviones actualizados", Status.Ok, data);
     }
 }

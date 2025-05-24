@@ -39,6 +39,15 @@ public class PlaneStorage {
         return true;  
     }
     
+    public Plane findById(String id) {
+        for (Plane plane : planes) {
+            if (plane.getId().equals(id)) {
+                return plane;
+            }
+        }
+        return null; 
+    }
+    
     
     
    

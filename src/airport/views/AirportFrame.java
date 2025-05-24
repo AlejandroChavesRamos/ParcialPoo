@@ -5,6 +5,7 @@
 package airport.views;
 
 
+import airport.controllers.FlightController;
 import airport.controllers.LocationController;
 import airport.controllers.PassengerController;
 import airport.controllers.PlaneController;
@@ -1687,6 +1688,22 @@ public class AirportFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_RefreshShowAllPassengersActionPerformed
 
     private void RefreshShowFlightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshShowFlightsActionPerformed
+        Response response = FlightController.showAllFlights();
+        DefaultTableModel model = (DefaultTableModel) ShowFlightsTable.getModel();
+        model.setRowCount(0);
+        
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+        } else {
+            ArrayList<Object[]> rows = (ArrayList<Object[]>) response.getObject();
+            for (Object[] row : rows) {
+                model.addRow(row);
+            }
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Response Message", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
         
     }//GEN-LAST:event_RefreshShowFlightsActionPerformed
 

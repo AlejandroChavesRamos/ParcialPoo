@@ -4,6 +4,7 @@
  */
 package main;
 
+import airport.models.storage.json.FlightJson;
 import airport.models.storage.json.LocationJson;
 import airport.models.storage.json.PassengerJson;
 import airport.models.storage.json.PlaneJson;
@@ -24,6 +25,7 @@ public class Main {
         PassengerJson.readPassengers("json/passengers.json");
         LocationJson.readLocation("json/locations.json");
         PlaneJson.readPlanes("json/Planes.json");
+        FlightJson.readFlights("json/flights.json");
                 
         System.setProperty("flatlaf.useNativeLibrary", "false");
 

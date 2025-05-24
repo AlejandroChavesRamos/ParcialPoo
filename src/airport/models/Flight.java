@@ -115,4 +115,7 @@ public class Flight {
         return passengers.size();
     }
     
+    public boolean hasScale() {
+        return scaleLocation != null;
+    }
 }

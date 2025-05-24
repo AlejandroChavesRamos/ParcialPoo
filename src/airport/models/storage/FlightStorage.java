@@ -28,7 +28,7 @@ public class FlightStorage {
     }
 
 
-    public boolean AddPassenger(Flight flight){
+    public boolean AddFlight(Flight flight){
         for (Flight f : this.flights) {
             if (f.getId().equals(flight.getId())) {
                 return false;
@@ -38,4 +38,6 @@ public class FlightStorage {
         return true;
 
     }
+    
+    
 }

@@ -38,4 +38,13 @@ public class LocationStorage {
         this.locations.add(location);
         return true;
     }
+    
+    public Location findById(String id) {
+        for (Location loc : locations) {
+            if (loc.getAirportId().equalsIgnoreCase(id)) {
+                return loc;
+            }
+        }
+        return null;
+    }
 }
