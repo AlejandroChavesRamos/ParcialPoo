@@ -33,6 +33,7 @@ public class LocationController {
                 
             });
         }
-        return new Response("Localizaciones actualizados", Status.Ok, data);
+        Response r = new Response("Localizaciones actualizados", Status.Ok, data);
+        return r.clone();
     }
 }

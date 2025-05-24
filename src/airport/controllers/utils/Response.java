@@ -8,7 +8,7 @@ package airport.controllers.utils;
  *
  * @author alejo
  */
-public class Response {
+public class Response implements Cloneable{
     private String message;
     private int status;
     private Object object;
@@ -35,4 +35,16 @@ public class Response {
     public Object getObject() {
         return object;
     }
+
+    @Override
+    public Response clone(){
+        try{
+            return(Response) super.clone();
+        }catch(CloneNotSupportedException e){
+            throw new AssertionError();
+        }
+    }
+    
+    
+    
 }

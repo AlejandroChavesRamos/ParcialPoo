@@ -54,7 +54,9 @@ public class FlightController {
             });
         }
         
-        return new Response("Vuelos actualizados", Status.Ok, data);
+        Response r = new Response("Vuelos actualizados", Status.Ok, data);
+        return r.clone();
+
         
         
     }

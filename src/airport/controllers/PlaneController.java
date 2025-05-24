@@ -36,6 +36,7 @@ public class PlaneController {
             });
         }
         
-        return new Response("Aviones actualizados", Status.Ok, data);
+        Response r = new Response("Aviones actualizados", Status.Ok, data);
+        return r.clone();
     }
 }

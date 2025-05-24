@@ -62,7 +62,9 @@ public class PassengerController {
             });
         }
         
-        return new Response("Pasajeros actualizados", Status.Ok, data);
+        Response r = new Response("Pasajeros actualizados", Status.Ok, data);
+        return r.clone();
+
         
         
     }
