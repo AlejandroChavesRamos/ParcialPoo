@@ -6,7 +6,7 @@ package airport.controllers;
 
 import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
-import airport.models.Location;
+import airport.models.location.Location;
 import airport.models.storage.LocationStorage;
 import java.util.ArrayList;
 import java.util.Comparator;

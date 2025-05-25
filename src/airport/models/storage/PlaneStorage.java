@@ -4,7 +4,7 @@
  */
 package airport.models.storage;
 
-import airport.models.Plane;
+import airport.models.plane.Plane;
 import static airport.models.storage.json.PlaneJson.readPlanes;
 import java.io.IOException;
 import java.util.ArrayList;

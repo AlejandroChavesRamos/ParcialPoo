@@ -4,7 +4,7 @@
  */
 package airport.models.storage;
 
-import airport.models.Location;
+import airport.models.location.Location;
 import static airport.models.storage.json.LocationJson.readLocation;
 import java.io.IOException;
 import java.util.ArrayList;

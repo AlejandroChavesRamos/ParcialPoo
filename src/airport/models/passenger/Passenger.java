@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package airport.models;
+package airport.models.passenger;
 
-import airport.models.Flight;
+import airport.models.Flight.Flight;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -96,17 +96,6 @@ public class Passenger {
         this.country = country;
     }
     
-    public String getFullname() {
-        return firstname + " " + lastname;
-    }
-    
-    public String generateFullPhone() {
-        return "+" + countryPhoneCode + " " + phone;
-    }
-    
-    public int calculateAge() {
-        return Period.between(birthDate, LocalDate.now()).getYears();
-    }
     
     public int getNumFlights() {
         return flights.size();

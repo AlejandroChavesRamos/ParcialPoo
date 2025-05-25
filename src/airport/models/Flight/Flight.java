@@ -2,10 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package airport.models;
+package airport.models.Flight;
 
+import airport.models.location.Location;
+import airport.models.passenger.Passenger;
+import airport.models.plane.Plane;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,7 +18,7 @@ import java.util.ArrayList;
 public class Flight {
     
     private final String id;
-    private ArrayList<Passenger> passengers;
+    private List<Passenger> passengers;
     private Plane plane;
     private Location departureLocation;
     private Location scaleLocation;
@@ -103,13 +107,7 @@ public class Flight {
         this.departureDate = departureDate;
     }
     
-    public LocalDateTime calculateArrivalDate() {
-        return departureDate.plusHours(hoursDurationScale).plusHours(hoursDurationArrival).plusMinutes(minutesDurationScale).plusMinutes(minutesDurationArrival);
-    }
     
-    public void delay(int hours, int minutes) {
-        this.departureDate = this.departureDate.plusHours(hours).plusMinutes(minutes);
-    }
     
     public int getNumPassengers() {
         return passengers.size();

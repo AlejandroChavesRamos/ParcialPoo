@@ -6,7 +6,7 @@ package airport.controllers;
 
 import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
-import airport.models.Plane;
+import airport.models.plane.Plane;
 import airport.models.storage.PlaneStorage;
 import java.io.IOException;
 import java.util.ArrayList;

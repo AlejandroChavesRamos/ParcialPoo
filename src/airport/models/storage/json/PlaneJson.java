@@ -4,7 +4,7 @@
  */
 package airport.models.storage.json;
 
-import airport.models.Plane;
+import airport.models.plane.Plane;
 import airport.models.storage.PlaneStorage;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

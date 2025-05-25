@@ -6,9 +6,9 @@ package airport.controllers;
 
 import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
-import airport.models.Passenger;
+import airport.models.passenger.Passenger;
+import airport.models.passenger.PassengerFormatos;
 import airport.models.storage.PassengerStorage;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -277,9 +277,9 @@ public class PassengerController {
         for (Passenger p : passengers) {
             data.add(new Object[]{
                 p.getId(),
-                p.getFullname(),
+                PassengerFormatos.getFullname(p),
                 p.getBirthDate(),
-                p.calculateAge(),
+                PassengerFormatos.calculateAge(p),
                 p.getPhone(),
                 p.getCountry(),
                 p.getNumFlights()

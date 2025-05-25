@@ -1500,6 +1500,7 @@ public class AirportFrame extends javax.swing.JFrame {
         }
         PaneShowAllLocations.setEnabledAt(5, false);
         PaneShowAllLocations.setEnabledAt(6, false);
+        PaneShowAllLocations.setEnabledAt(4, false);
     }//GEN-LAST:event_administratorActionPerformed
 
     private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
@@ -1511,6 +1512,7 @@ public class AirportFrame extends javax.swing.JFrame {
             PaneShowAllLocations.setEnabledAt(i, false);
 
         }
+        PaneShowAllLocations.setEnabledAt(4, true);
         PaneShowAllLocations.setEnabledAt(9, true);
         PaneShowAllLocations.setEnabledAt(5, true);
         PaneShowAllLocations.setEnabledAt(6, true);
