@@ -17,39 +17,9 @@ import java.util.Comparator;
  * @author alejo
  */
 public class LocationController {
-    public static Response showAllLocations(){
-        LocationStorage storage = LocationStorage.getInstance();
-        ArrayList<Location> locations = storage.getLocation();
-        
-        locations.sort(Comparator.comparing(Location::getAirportId));
-        ArrayList<Object[]> data = new ArrayList<>();
-        for (Location l : locations) {
-            data.add(new Object[]{
-                l.getAirportId(),
-                l.getAirportName(),
-                l.getAirportCity(),
-                l.getAirportCountry()
-                
-            });
-        }
-        Response r = new Response("Locations Updated", Status.Ok, data);
-        return r.clone();
-    }
     
-    public ArrayList<String> updateJsonComponent(){
-        LocationStorage storage = LocationStorage.getInstance();
-        
-        ArrayList<Location> locations = storage.getLocation();
-        locations.sort(Comparator.comparing(Location::getAirportId));
-        ArrayList<String> ids = new ArrayList<>();
-        
-        for(Location l : locations){
-            ids.add(l.getAirportId()+"");
-        }
-        
-        return ids;
-        
-    }
+    
+    
     
     public static Response createLocation(String id, String name, String city, String country, String latitude, String longitude){
         try{

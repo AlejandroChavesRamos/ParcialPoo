@@ -4,10 +4,28 @@
  */
 package airport.controllers.planes;
 
+import airport.models.plane.Plane;
+import airport.models.storage.PlaneStorage;
+import java.util.ArrayList;
+import java.util.Comparator;
+
 /**
  *
  * @author alejo
  */
 public class PlaneControllerUpdateJson {
-    
+    public ArrayList<String> updateJsonComponent(){
+        PlaneStorage storage = PlaneStorage.getInstance();
+        
+        ArrayList<Plane> planes = storage.getPlanes();
+        planes.sort(Comparator.comparing(Plane::getId));
+        ArrayList<String> ids = new ArrayList<>();
+        
+        for(Plane p : planes){
+            ids.add(p.getId()+"");
+        }
+        
+        return ids;
+        
+    }
 }
