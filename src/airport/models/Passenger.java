@@ -8,6 +8,7 @@ import airport.models.Flight;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,7 +23,7 @@ public class Passenger {
     private int countryPhoneCode;
     private long phone;
     private String country;
-    private ArrayList<Flight> flights;
+    private List<Flight> flights;
 
     public Passenger(long id, String firstname, String lastname, LocalDate birthDate, int countryPhoneCode, long phone, String country) {
         this.id = id;
@@ -67,7 +68,7 @@ public class Passenger {
         return country;
     }
 
-    public ArrayList<Flight> getFlights() {
+    public List<Flight> getFlights() {
         return flights;
     }
 

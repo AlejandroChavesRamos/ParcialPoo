@@ -6,6 +6,7 @@ package airport.models;
 
 import airport.models.Flight;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Plane {
     private String model;
     private final int maxCapacity;
     private String airline;
-    private ArrayList<Flight> flights;
+    private List<Flight> flights;
 
     public Plane(String id, String brand, String model, int maxCapacity, String airline) {
         this.id = id;
@@ -53,7 +54,7 @@ public class Plane {
         return airline;
     }
 
-    public ArrayList<Flight> getFlights() {
+    public List<Flight> getFlights() {
         return flights;
     }
     
