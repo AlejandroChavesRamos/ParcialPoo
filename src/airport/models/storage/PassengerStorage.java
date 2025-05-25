@@ -44,6 +44,14 @@ public class PassengerStorage {
         
     }
     
+    public Passenger findById(Long id) {
+        for (Passenger passenger : passengers) {
+            if (passenger.getId()  == id) {
+                return passenger;
+            }
+        }
+        return null; 
+    }
 
    
 

@@ -36,10 +36,24 @@ public class PlaneController {
             });
         }
         
-        Response r = new Response("Aviones actualizados", Status.Ok, data);
+        Response r = new Response("Planes updated", Status.Ok, data);
         return r.clone();
     }
     
+    public ArrayList<String> updateJsonComponent(){
+        PlaneStorage storage = PlaneStorage.getInstance();
+        
+        ArrayList<Plane> planes = storage.getPlanes();
+        planes.sort(Comparator.comparing(Plane::getId));
+        ArrayList<String> ids = new ArrayList<>();
+        
+        for(Plane p : planes){
+            ids.add(p.getId()+"");
+        }
+        
+        return ids;
+        
+    }
     
     public static Response createPlane(String id, String brand, String model, String maxCapacity, String airline){
         try{

@@ -8,9 +8,11 @@ import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
 import airport.models.Flight;
 import airport.models.Location;
+import airport.models.Passenger;
 import airport.models.Plane;
 import airport.models.storage.FlightStorage;
 import airport.models.storage.LocationStorage;
+import airport.models.storage.PassengerStorage;
 import airport.models.storage.PlaneStorage;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -27,6 +29,7 @@ public class FlightController {
         FlightStorage storage = FlightStorage.getInstance();
         
         ArrayList<Flight> flights = storage.getFlights();
+        flights.sort(Comparator.comparing(Flight::getId));
         ArrayList<String> ids = new ArrayList<>();
         
         for(Flight f : flights){
@@ -98,7 +101,7 @@ public class FlightController {
             
             Plane plane;
             if(storageP.findById(planeId)== null){
-                Response r = new Response("Plane not found", Status.Bad_Request);
+                Response r = new Response("Plane not found", Status.Not_Found);
                 return r.clone();
             }else{
                 plane = storageP.findById(planeId);
@@ -113,7 +116,7 @@ public class FlightController {
             }
             
             if(storageL.findById(arrivalLocationId) == null){
-                Response r = new Response("Arraival airport nor found", Status.Bad_Request);
+                Response r = new Response("Arraival airport nor found", Status.Not_Found);
                 return r.clone();
             }else{
                 arrivalLocation = storageL.findById(arrivalLocationId);
@@ -183,7 +186,7 @@ public class FlightController {
             
             if(hasScale){
                 if(storageL.findById(scaleLocationId)== null){
-                    Response r = new Response("Scale airport nor found", Status.Bad_Request);
+                    Response r = new Response("Scale airport nor found", Status.Not_Found);
                     return r.clone();
                 }else{
                     scaleLocation = storageL.findById(scaleLocationId);
@@ -226,5 +229,151 @@ public class FlightController {
             Response r = new Response("Unexpected error", Status.Internal_Server_Error);
             return r.clone();
         }
+        
+        
+    }
+    
+    public static Response addPassenger(String passengerId, String flightId){
+        FlightStorage storageF = FlightStorage.getInstance();
+        PassengerStorage storageP = PassengerStorage.getInstance();
+        try{
+            Long passengerIdLong;
+            if(passengerId.equals("")){
+                Response r = new Response("Passenger id cannot be empty", Status.Bad_Request);
+                return r.clone();
+            }
+            try{
+                passengerIdLong = Long.valueOf(passengerId);
+                if(passengerIdLong < 0){
+                    Response r = new Response("Passenger id must be positive or 0", Status.Bad_Request);
+                    return r.clone();
+                }
+                if(passengerId.length() > 15){
+                    Response r = new Response("The passenger id can have a maximum of 15 digits", Status.Bad_Request);
+                    return r.clone();
+                }
+            }catch (NumberFormatException ex) {
+                Response r = new Response("Passenger id must be numeric", Status.Bad_Request);
+                return r.clone();
+            }
+            if(flightId.equals("Flight")){
+                Response r = new Response("You must select a flight id", Status.Bad_Request);
+                return r.clone();
+            }
+            
+            Flight flight = storageF.findById(flightId);
+            Passenger passenger = storageP.findById(passengerIdLong);
+            if(passenger == null){
+                Response r = new Response("Passenger not found", Status.Not_Found);
+                return r.clone();
+            }
+            if(flight == null){
+                Response r = new Response("Flight not found", Status.Not_Found);
+                return r.clone();
+            }
+            if(passenger.getFlights().contains(flight)){
+                Response r = new Response("The passenger is already assigned to this flight", Status.Bad_Request);
+                return r.clone();
+            }
+            passenger.addFlight(flight);
+            flight.addPassenger(passenger);
+            
+            Response r = new Response("Passenger added", Status.Ok);
+            return r.clone();
+        }catch (Exception ex) {
+            Response r = new Response("Unexpected error", Status.Internal_Server_Error);
+            return r.clone();
+        }    
+    }
+    
+    public static Response delayFlight(String flightId, String hours, String minutes){
+        FlightStorage storage = FlightStorage.getInstance();
+        int hoursInt, minutesInt;
+        Flight flight;
+        try{
+            flight = storage.findById(flightId);
+            if(flightId.contentEquals("ID") || hours.equals("Hour") || minutes.equals("Minute")){
+                Response r = new Response("All fields must be filled", Status.Bad_Request);
+                return r.clone();
+            }
+
+            if(flight == null){
+                Response r = new Response("Flight not found", Status.Not_Found);
+                return r.clone();
+            }else{
+                try{
+                    hoursInt = Integer.parseInt(hours);
+                }catch (NumberFormatException ex) {
+                    Response r = new Response("Invalid hour", Status.Bad_Request);
+                    return r.clone();
+                }
+                try{
+                    minutesInt = Integer.parseInt(minutes);
+                }catch (NumberFormatException ex) {
+                    Response r = new Response("Invalid arraival minute", Status.Bad_Request);
+                    return r.clone();
+                }
+
+                if(minutesInt == 0 && hoursInt == 0){
+                    Response r = new Response("The duration of the delay must be different from 0", Status.Bad_Request);
+                    return r.clone();
+                }
+                flight.delay(hoursInt, minutesInt);
+            }
+            Response r = new Response("The flight has been delayed", Status.Ok);
+            return r.clone();
+        }catch (Exception ex) {
+            Response r = new Response("Unexpected error", Status.Internal_Server_Error);
+            return r.clone();
+        } 
+        
+        
+    }
+    
+    public static Response showAllMyFlights(String id){
+        Long idLong;
+        PassengerStorage storageP = PassengerStorage.getInstance();
+        FlightStorage storgaF = FlightStorage.getInstance();
+        
+        ArrayList<Object[]> data = new ArrayList<>();
+        try{
+            if(id.equals("Select User")){
+                Response r = new Response("You must select a id", Status.Bad_Request);
+                return r.clone();
+            }
+            try{
+                idLong = Long.valueOf(id);   
+            }catch (Exception ex) {
+                Response r = new Response("Id must be numeric", Status.Internal_Server_Error);
+                return r.clone();
+            } 
+            Passenger passenger = storageP.findById(idLong);
+            if(passenger == null){
+                Response r = new Response("Passenger not found", Status.Not_Found);
+                return r.clone();
+            }else{
+                ArrayList<Flight> flights = (ArrayList<Flight>) passenger.getFlights();
+                flights.sort(Comparator.comparing(Flight::getId));
+                if(flights.isEmpty()){
+                    Response r = new Response("This user dosent have flights", Status.Not_Found);
+                    return r.clone();
+                }
+                
+                for (Flight f : flights) {
+                    data.add(new Object[]{
+                        f.getId(),
+                        f.getDepartureLocation().getAirportId(),
+                        f.getArrivalLocation().getAirportId(),
+                        
+
+                    });
+                }
+            }
+            Response r = new Response("Flights updated", Status.Ok, data);
+            return r.clone(); 
+        }catch (Exception ex) {
+            Response r = new Response("Unexpected error", Status.Internal_Server_Error);
+            return r.clone();
+        } 
     }
 }

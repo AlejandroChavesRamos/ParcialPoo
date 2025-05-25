@@ -38,6 +38,13 @@ public class FlightStorage {
         return true;
 
     }
-    
+    public Flight findById(String id) {
+        for (Flight flight : flights) {
+            if (flight.getId().equals(id)) {
+                return flight;
+            }
+        }
+        return null; 
+    }
     
 }
