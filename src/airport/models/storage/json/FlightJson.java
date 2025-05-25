@@ -6,7 +6,7 @@ package airport.models.storage.json;
 
 import airport.controllers.LocationController;
 import airport.controllers.PlaneController;
-import airport.models.Flight.Flight;
+import airport.models.flights.Flight;
 import airport.models.location.Location;
 import airport.models.passenger.Passenger;
 import airport.models.plane.Plane;

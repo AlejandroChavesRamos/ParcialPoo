@@ -6,8 +6,8 @@ package airport.controllers;
 
 import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
-import airport.models.Flight.Flight;
-import airport.models.Flight.FlightCalculateTimes;
+import airport.models.flights.Flight;
+import airport.models.flights.FlightCalculateTimes;
 import airport.models.location.Location;
 import airport.models.passenger.Passenger;
 import airport.models.plane.Plane;
