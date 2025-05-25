@@ -117,16 +117,16 @@ public class AirportFrame extends javax.swing.JFrame {
         userSelect = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        AirplaneRIdTextfield = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        AirplaneRBrandTextfield = new javax.swing.JTextField();
+        AirplaneRModelTextfield = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        AirplaneRMaxCapacityTextfield = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        AirplaneRAirlineTextfield = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
+        CreateAirplaneButton = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         Location_Registration_AirpotID = new javax.swing.JTextField();
@@ -333,55 +333,55 @@ public class AirportFrame extends javax.swing.JFrame {
         jPanel3.add(jLabel11);
         jLabel11.setBounds(53, 96, 22, 25);
 
-        jTextField8.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jPanel3.add(jTextField8);
-        jTextField8.setBounds(180, 93, 130, 31);
+        AirplaneRIdTextfield.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jPanel3.add(AirplaneRIdTextfield);
+        AirplaneRIdTextfield.setBounds(180, 93, 130, 31);
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel12.setText("Brand:");
         jPanel3.add(jLabel12);
         jLabel12.setBounds(53, 157, 50, 25);
 
-        jTextField9.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jPanel3.add(jTextField9);
-        jTextField9.setBounds(180, 154, 130, 31);
+        AirplaneRBrandTextfield.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jPanel3.add(AirplaneRBrandTextfield);
+        AirplaneRBrandTextfield.setBounds(180, 154, 130, 31);
 
-        jTextField10.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jPanel3.add(jTextField10);
-        jTextField10.setBounds(180, 213, 130, 31);
+        AirplaneRModelTextfield.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jPanel3.add(AirplaneRModelTextfield);
+        AirplaneRModelTextfield.setBounds(180, 213, 130, 31);
 
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel13.setText("Model:");
         jPanel3.add(jLabel13);
         jLabel13.setBounds(53, 216, 55, 25);
 
-        jTextField11.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jPanel3.add(jTextField11);
-        jTextField11.setBounds(180, 273, 130, 31);
+        AirplaneRMaxCapacityTextfield.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jPanel3.add(AirplaneRMaxCapacityTextfield);
+        AirplaneRMaxCapacityTextfield.setBounds(180, 273, 130, 31);
 
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel14.setText("Max Capacity:");
         jPanel3.add(jLabel14);
         jLabel14.setBounds(53, 276, 109, 25);
 
-        jTextField12.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jPanel3.add(jTextField12);
-        jTextField12.setBounds(180, 333, 130, 31);
+        AirplaneRAirlineTextfield.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jPanel3.add(AirplaneRAirlineTextfield);
+        AirplaneRAirlineTextfield.setBounds(180, 333, 130, 31);
 
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel15.setText("Airline:");
         jPanel3.add(jLabel15);
         jLabel15.setBounds(53, 336, 70, 25);
 
-        jButton9.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jButton9.setText("Create");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        CreateAirplaneButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        CreateAirplaneButton.setText("Create");
+        CreateAirplaneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                CreateAirplaneButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton9);
-        jButton9.setBounds(490, 480, 120, 40);
+        jPanel3.add(CreateAirplaneButton);
+        CreateAirplaneButton.setBounds(490, 480, 120, 40);
 
         PaneShowAllLocations.addTab("Airplane registration", jPanel3);
 
@@ -1502,18 +1502,31 @@ public class AirportFrame extends javax.swing.JFrame {
 //        this.userSelect.addItem("" + id);
     }//GEN-LAST:event_RegisterPassengerActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void CreateAirplaneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateAirplaneButtonActionPerformed
         // TODO add your handling code here:
-        String id = jTextField8.getText();
-        String brand = jTextField9.getText();
-        String model = jTextField10.getText();
-        int maxCapacity = Integer.parseInt(jTextField11.getText());
-        String airline = jTextField12.getText();
+        
+        String id = AirplaneRIdTextfield.getText();
+        String brand = AirplaneRBrandTextfield.getText();
+        String model = AirplaneRModelTextfield.getText();
+        String maxCapacity = AirplaneRMaxCapacityTextfield.getText();
+        String airline = AirplaneRAirlineTextfield.getText();
 
-//        this.planes.add(new Plane(id, brand, model, maxCapacity, airline));
+        Response response = PlaneController.createPlane(id, brand, model, maxCapacity, airline);
+        if (response.getStatus() >= 500) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
+        } else if (response.getStatus() >= 400) {
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.WARNING_MESSAGE);
+        }else{
+            AirplaneRIdTextfield.setText("");
+            AirplaneRBrandTextfield.setText("");
+            AirplaneRModelTextfield.setText("");
+            AirplaneRMaxCapacityTextfield.setText("");
+            AirplaneRAirlineTextfield.setText("");
+            JOptionPane.showMessageDialog(null, response.getMessage(), "Response Message", JOptionPane.INFORMATION_MESSAGE);
+        }
 
         this.jComboBox1.addItem(id);
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_CreateAirplaneButtonActionPerformed
 
     private void Create_LocationRegistrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Create_LocationRegistrationActionPerformed
         // TODO add your handling code here:
@@ -1807,6 +1820,12 @@ public class AirportFrame extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField AirplaneRAirlineTextfield;
+    private javax.swing.JTextField AirplaneRBrandTextfield;
+    private javax.swing.JTextField AirplaneRIdTextfield;
+    private javax.swing.JTextField AirplaneRMaxCapacityTextfield;
+    private javax.swing.JTextField AirplaneRModelTextfield;
+    private javax.swing.JButton CreateAirplaneButton;
     private javax.swing.JButton Create_LocationRegistration;
     private javax.swing.JComboBox<String> DAY1;
     private javax.swing.JComboBox<String> DAY2;
@@ -1858,7 +1877,6 @@ public class AirportFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -1925,9 +1943,6 @@ public class AirportFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField19;
     private javax.swing.JTextField jTextField20;
@@ -1939,8 +1954,6 @@ public class AirportFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField26;
     private javax.swing.JTextField jTextField27;
     private javax.swing.JTextField jTextField28;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private airport.views.PanelRound panelRound1;
     private airport.views.PanelRound panelRound2;
     private airport.views.PanelRound panelRound3;

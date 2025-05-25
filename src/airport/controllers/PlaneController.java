@@ -39,4 +39,50 @@ public class PlaneController {
         Response r = new Response("Aviones actualizados", Status.Ok, data);
         return r.clone();
     }
+    
+    
+    public static Response createPlane(String id, String brand, String model, String maxCapacity, String airline){
+        try{
+            int maxCapacityInt;
+            if(id == null || brand == null || model == null || maxCapacity == null || airline == null){
+                Response r = new Response("Todos los campos deben estar llenos", Status.Bad_Request);
+                return r.clone();
+            }
+            if(id.length()!= 7){
+                Response r = new Response("El id debe tener 7 digitos", Status.Bad_Request);
+                return r.clone();
+            }
+            for(int i = 0; i<2; i++){
+                char letra = id.charAt(i);
+                if(letra < 'A' || letra > 'Z'){
+                    Response r = new Response("El id debe comenzar con dos letras en mayúscula", Status.Bad_Request);
+                    return r.clone();
+                }
+            }
+            for(int i = 2; i<7; i++){
+                char n = id.charAt(i);
+                if(n < '0' || n > '9'){
+                    Response r = new Response("El id no es valido", Status.Bad_Request);
+                    return r.clone();
+                }
+            }
+            try{
+                maxCapacityInt = Integer.parseInt(maxCapacity);
+            }catch (NumberFormatException ex) {
+                Response r = new Response("Max capacity debe ser numerico", Status.Bad_Request);
+                return r.clone();
+            }
+            
+            PlaneStorage storage = PlaneStorage.getInstance();
+            if(!storage.AddPlane(new Plane(id, brand, model, maxCapacityInt, airline))){
+                Response r = new Response("Un avión con ese id ya existe", Status.Bad_Request);
+                return r.clone();
+            }
+            Response r = new Response("Avión creado exitosamente", Status.Created);
+            return r.clone();
+        }catch (Exception ex) {
+            Response r = new Response("Unexpected error", Status.Internal_Server_Error);
+            return r.clone();
+        }
+    }
 }
