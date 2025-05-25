@@ -4,8 +4,8 @@
  */
 package airport.models.storage.json;
 
-import airport.controllers.LocationController;
-import airport.controllers.PlaneController;
+import airport.controllers.locations.LocationController;
+import airport.controllers.planes.PlaneController;
 import airport.models.flights.Flight;
 import airport.models.location.Location;
 import airport.models.passenger.Passenger;

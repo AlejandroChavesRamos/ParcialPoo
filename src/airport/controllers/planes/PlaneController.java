@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package airport.controllers;
+package airport.controllers.planes;
 
 import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
@@ -18,43 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author alejo
  */
 public class PlaneController {
-    public static Response showAllPlane(){
-        PlaneStorage storage = PlaneStorage.getInstance();
-        ArrayList<Plane> planes = storage.getPlanes();
-        
-        planes.sort(Comparator.comparing(Plane::getId));
-        ArrayList<Object[]> data = new ArrayList<>();
-        for(Plane p: planes){
-            data.add(new Object[]{
-               p.getId(),
-               p.getBrand(),
-               p.getModel(),
-               p.getMaxCapacity(),
-               p.getAirline(),
-               p.getNumFlights()
-                    
-            });
-        }
-        
-        Response r = new Response("Planes updated", Status.Ok, data);
-        return r.clone();
-    }
-    
-    public ArrayList<String> updateJsonComponent(){
-        PlaneStorage storage = PlaneStorage.getInstance();
-        
-        ArrayList<Plane> planes = storage.getPlanes();
-        planes.sort(Comparator.comparing(Plane::getId));
-        ArrayList<String> ids = new ArrayList<>();
-        
-        for(Plane p : planes){
-            ids.add(p.getId()+"");
-        }
-        
-        return ids;
-        
-    }
-    
+
     public static Response createPlane(String id, String brand, String model, String maxCapacity, String airline){
         try{
             int maxCapacityInt;

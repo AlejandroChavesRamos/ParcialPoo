@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package airport.controllers;
+package airport.controllers.passangers;
 
 import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
@@ -252,46 +252,9 @@ public class PassengerController {
         }
     } 
     
-    public ArrayList<String> updateJsonComponent(){
-        PassengerStorage passengerS = PassengerStorage.getInstance();
-        
-        ArrayList<Passenger> passengers = passengerS.getPassengers();
-        passengers.sort(Comparator.comparing(Passenger::getId));
-        ArrayList<String> ids = new ArrayList<>();
-        
-        for(Passenger p : passengers){
-            ids.add(p.getId()+"");
-        }
-        
-        return ids;
-        
-    }
     
-    public static Response showAllPassengers(){
-        PassengerStorage storage = PassengerStorage.getInstance();
-        ArrayList<Passenger> passengers = storage.getPassengers();
-        
-        
-        passengers.sort(Comparator.comparing(Passenger::getId));
-        ArrayList<Object[]> data = new ArrayList<>();
-        for (Passenger p : passengers) {
-            data.add(new Object[]{
-                p.getId(),
-                PassengerFormatos.getFullname(p),
-                p.getBirthDate(),
-                PassengerFormatos.calculateAge(p),
-                p.getPhone(),
-                p.getCountry(),
-                p.getNumFlights()
-            });
-        }
-        
-        Response r = new Response("Passenger updated", Status.Ok, data);
-        return r.clone();
-
-        
-        
-    }
+    
+    
     
 
 }

@@ -5,10 +5,19 @@
 package airport.views;
 
 
-import airport.controllers.FlightController;
-import airport.controllers.LocationController;
-import airport.controllers.PassengerController;
-import airport.controllers.PlaneController;
+import airport.controllers.flights.FlightController;
+import airport.controllers.flights.FlightControllerPassenger;
+import airport.controllers.flights.FlightControllerShowJtables;
+import airport.controllers.flights.FlightControllerUpdateJson;
+import airport.controllers.locations.LocationController;
+import airport.controllers.locations.LocationControllerShowJtables;
+import airport.controllers.locations.LocationControllerUpdateJson;
+import airport.controllers.passangers.PassengerController;
+import airport.controllers.passangers.PassengerControllerShowJtables;
+import airport.controllers.passangers.PassengerControllerUpdateJson;
+import airport.controllers.planes.PlaneController;
+import airport.controllers.planes.PlaneControllerShowJtables;
+import airport.controllers.planes.PlaneControllerUpdateJson;
 import airport.controllers.utils.Response;
 import java.awt.Color;
 import java.io.IOException;
@@ -50,7 +59,7 @@ public class AirportFrame extends javax.swing.JFrame {
         
     }
     private void updateBoxes(){
-        FlightController controlerF = new FlightController();
+        FlightControllerUpdateJson controlerF = new FlightControllerUpdateJson();
         try{
             ArrayList<String> flightIds = controlerF.updateJsonComponent();
             for(String id : flightIds){
@@ -60,7 +69,7 @@ public class AirportFrame extends javax.swing.JFrame {
         } catch (IOException e) {
             System.out.println("hola");
         }
-        PlaneController controlerP = new PlaneController();
+        PlaneControllerUpdateJson controlerP = new PlaneControllerUpdateJson();
         try{
             ArrayList<String> planeIds = controlerP.updateJsonComponent();
             for(String id : planeIds){
@@ -68,7 +77,7 @@ public class AirportFrame extends javax.swing.JFrame {
             }
         }catch (Exception e) {
         }
-        LocationController controlerL = new LocationController();
+        LocationControllerUpdateJson controlerL = new LocationControllerUpdateJson();
         try{
             ArrayList<String> locationIds = controlerL.updateJsonComponent();
             for(String id : locationIds){
@@ -78,7 +87,7 @@ public class AirportFrame extends javax.swing.JFrame {
             }
         }catch (Exception e) {
         }
-        PassengerController controlerU = new PassengerController();
+        PassengerControllerUpdateJson controlerU = new PassengerControllerUpdateJson();
         try{
             ArrayList<String> userIds = controlerU.updateJsonComponent();
             for(String id : userIds){
@@ -1655,6 +1664,7 @@ public class AirportFrame extends javax.swing.JFrame {
             flightRegistrationScaleMinute.setSelectedIndex(0);
             JOptionPane.showMessageDialog(null, response.getMessage(), "Response Message", JOptionPane.INFORMATION_MESSAGE);
             this.AddToFightBox.addItem(id);
+            this.DelayFlightID.addItem(id);
         }
 
         
@@ -1696,7 +1706,7 @@ public class AirportFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String passengerId = AddToFlightUserId.getText();
         String flightId = AddToFightBox.getItemAt(AddToFightBox.getSelectedIndex());
-        Response response =  FlightController.addPassenger(passengerId, flightId);
+        Response response =  FlightControllerPassenger.addPassenger(passengerId, flightId);
         if (response.getStatus() >= 500) {
             JOptionPane.showMessageDialog(null, response.getMessage(), "Error " + response.getStatus(), JOptionPane.ERROR_MESSAGE);
         } else if (response.getStatus() >= 400) {
@@ -1734,7 +1744,7 @@ public class AirportFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String passengerId = addministrarionUser.getItemAt(addministrarionUser.getSelectedIndex());
         
-        Response response = FlightController.showAllMyFlights(passengerId);
+        Response response = FlightControllerShowJtables.showAllMyFlights(passengerId);
         DefaultTableModel model = (DefaultTableModel) TablaMyFlights.getModel();
         model.setRowCount(0);
         
@@ -1755,7 +1765,7 @@ public class AirportFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_RefreshButtonActionPerformed
 
     private void RefreshShowAllPassengersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshShowAllPassengersActionPerformed
-        Response response = PassengerController.showAllPassengers();
+        Response response = PassengerControllerShowJtables.showAllPassengers();
         DefaultTableModel model = (DefaultTableModel) ShowPassengerTable.getModel();
         model.setRowCount(0);
         
@@ -1773,7 +1783,7 @@ public class AirportFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_RefreshShowAllPassengersActionPerformed
 
     private void RefreshShowFlightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshShowFlightsActionPerformed
-        Response response = FlightController.showAllFlights();
+        Response response = FlightControllerShowJtables.showAllFlights();
         DefaultTableModel model = (DefaultTableModel) ShowFlightsTable.getModel();
         model.setRowCount(0);
         
@@ -1793,7 +1803,7 @@ public class AirportFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_RefreshShowFlightsActionPerformed
 
     private void RefresShowPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefresShowPlanesActionPerformed
-        Response response = PlaneController.showAllPlane();
+        Response response = PlaneControllerShowJtables.showAllPlane();
         DefaultTableModel model = (DefaultTableModel) ShowPlanesTable.getModel();
         model.setRowCount(0);
         
@@ -1811,7 +1821,7 @@ public class AirportFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_RefresShowPlanesActionPerformed
 
     private void RefreshShowLocationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshShowLocationsActionPerformed
-        Response response = LocationController.showAllLocations();
+        Response response = LocationControllerShowJtables.showAllLocations();
         DefaultTableModel model = (DefaultTableModel) ShowLocationsTable.getModel();
         model.setRowCount(0);
         
