@@ -60,7 +60,7 @@ public class FlightControllerPassenger {
             }
             passenger.addFlight(flight);
             flight.addPassenger(passenger);
-            
+            storageF.notifyA();
             Response r = new Response("Passenger added", Status.Ok);
             return r.clone();
         }catch (Exception ex) {

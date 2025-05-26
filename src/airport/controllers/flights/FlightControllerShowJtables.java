@@ -70,7 +70,7 @@ public class FlightControllerShowJtables {
                 return r.clone();
             }else{
                 ArrayList<Flight> flights = (ArrayList<Flight>) passenger.getFlights();
-                flights.sort(Comparator.comparing(Flight::getId));
+                
                 if(flights.isEmpty()){
                     Response r = new Response("This user dosent have flights", Status.Not_Found);
                     return r.clone();

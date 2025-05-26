@@ -49,7 +49,7 @@ public class AirportFrame extends javax.swing.JFrame {
         
         JtablesObserverController FlightObserver = new  JtablesObserverController(()->{
             Response response = FlightControllerShowJtables.showAllFlights();
-            DefaultTableModel model = (DefaultTableModel) ShowPassengerTable.getModel();
+            DefaultTableModel model = (DefaultTableModel) ShowFlightsTable.getModel();
             model.setRowCount(0);
             
             ArrayList<Object[]> rows = (ArrayList<Object[]>) response.getObject();
