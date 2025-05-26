@@ -20,7 +20,7 @@ public class LocationControllerShowJtables {
         LocationStorage storage = LocationStorage.getInstance();
         ArrayList<Location> locations = storage.getLocation();
         
-        locations.sort(Comparator.comparing(Location::getAirportId));
+        
         ArrayList<Object[]> data = new ArrayList<>();
         for (Location l : locations) {
             data.add(new Object[]{

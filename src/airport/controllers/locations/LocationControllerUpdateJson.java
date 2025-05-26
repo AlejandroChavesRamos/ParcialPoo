@@ -18,7 +18,7 @@ public class LocationControllerUpdateJson {
         LocationStorage storage = LocationStorage.getInstance();
         
         ArrayList<Location> locations = storage.getLocation();
-        locations.sort(Comparator.comparing(Location::getAirportId));
+       
         ArrayList<String> ids = new ArrayList<>();
         
         for(Location l : locations){

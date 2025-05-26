@@ -4,6 +4,7 @@
  */
 package airport.controllers.passangers;
 
+import airport.controllers.JtablesObserverController;
 import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
 import airport.models.passenger.Passenger;
@@ -243,7 +244,7 @@ public class PassengerController {
             passenger.setCountryPhoneCode(countryPhoneCodeInt);
             passenger.setPhone(phoneLong);
             passenger.setCountry(country);
-            
+            storage.notifyA();
             Response r = new Response("Passenger info updated", Status.Ok);
             return r.clone();
         }catch (Exception ex) {
@@ -254,7 +255,9 @@ public class PassengerController {
     
     
     
-    
+    public static void addObserver(JtablesObserverController observer){
+            PassengerStorage.getInstance().addObserver(observer);
+    }
     
 
 }

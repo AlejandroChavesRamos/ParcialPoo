@@ -4,6 +4,7 @@
  */
 package airport.controllers.locations;
 
+import airport.controllers.JtablesObserverController;
 import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
 import airport.models.location.Location;
@@ -92,5 +93,9 @@ public class LocationController {
         }
         
         
+        
+    }
+    public static void addObserver(JtablesObserverController observer){
+            LocationStorage.getInstance().addObserver(observer);
     }
 }

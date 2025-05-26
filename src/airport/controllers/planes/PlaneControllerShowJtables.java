@@ -20,7 +20,7 @@ public class PlaneControllerShowJtables {
         PlaneStorage storage = PlaneStorage.getInstance();
         ArrayList<Plane> planes = storage.getPlanes();
         
-        planes.sort(Comparator.comparing(Plane::getId));
+        
         ArrayList<Object[]> data = new ArrayList<>();
         for(Plane p: planes){
             data.add(new Object[]{

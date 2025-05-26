@@ -18,7 +18,7 @@ public class PlaneControllerUpdateJson {
         PlaneStorage storage = PlaneStorage.getInstance();
         
         ArrayList<Plane> planes = storage.getPlanes();
-        planes.sort(Comparator.comparing(Plane::getId));
+        
         ArrayList<String> ids = new ArrayList<>();
         
         for(Plane p : planes){

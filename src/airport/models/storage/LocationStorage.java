@@ -8,17 +8,19 @@ import airport.models.location.Location;
 import static airport.models.storage.json.LocationJson.readLocation;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
  * @author alejo
  */
-public class LocationStorage {
+public class LocationStorage extends Observable{
     private ArrayList<Location> locations = new ArrayList();
     private static LocationStorage instance;
     
     
     public ArrayList<Location> getLocation() {
+        locations.sort(Comparator.comparing(Location::getAirportId));
         return locations;
     }
     
@@ -35,6 +37,7 @@ public class LocationStorage {
                 return false;
             }
         }
+        notifyObservers();
         this.locations.add(location);
         return true;
     }

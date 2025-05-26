@@ -8,12 +8,13 @@ import airport.models.plane.Plane;
 import static airport.models.storage.json.PlaneJson.readPlanes;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
  * @author alejo
  */
-public class PlaneStorage {
+public class PlaneStorage extends Observable{
      //Creo lista
     private ArrayList<Plane> planes = new ArrayList();
     private static PlaneStorage instance;
@@ -26,6 +27,7 @@ public class PlaneStorage {
     }
 
     public ArrayList<Plane> getPlanes() {
+        planes.sort(Comparator.comparing(Plane::getId));
         return planes;
     }
     
@@ -35,6 +37,7 @@ public class PlaneStorage {
                 return false;
             }
         }
+        notifyObservers();
         this.planes.add(plane);
         return true;  
     }

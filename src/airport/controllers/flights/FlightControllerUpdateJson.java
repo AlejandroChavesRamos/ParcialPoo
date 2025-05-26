@@ -19,7 +19,7 @@ public class FlightControllerUpdateJson {
         FlightStorage storage = FlightStorage.getInstance();
         
         ArrayList<Flight> flights = storage.getFlights();
-        flights.sort(Comparator.comparing(Flight::getId));
+        
         ArrayList<String> ids = new ArrayList<>();
         
         for(Flight f : flights){

@@ -5,6 +5,7 @@
 package airport.views;
 
 
+import airport.controllers.JtablesObserverController;
 import airport.controllers.flights.FlightController;
 import airport.controllers.flights.FlightControllerPassenger;
 import airport.controllers.flights.FlightControllerShowJtables;
@@ -46,7 +47,53 @@ public class AirportFrame extends javax.swing.JFrame {
     public AirportFrame() throws IOException {
         initComponents();
         
-        
+        JtablesObserverController FlightObserver = new  JtablesObserverController(()->{
+            Response response = FlightControllerShowJtables.showAllFlights();
+            DefaultTableModel model = (DefaultTableModel) ShowPassengerTable.getModel();
+            model.setRowCount(0);
+            
+            ArrayList<Object[]> rows = (ArrayList<Object[]>) response.getObject();
+            for (Object[] row : rows) {
+                model.addRow(row);
+            }
+            
+            
+        });
+        FlightController.addObserver(FlightObserver);
+        JtablesObserverController PlaneObserver = new  JtablesObserverController(()->{
+            Response response = PlaneControllerShowJtables.showAllPlane();
+            DefaultTableModel model = (DefaultTableModel) ShowPlanesTable.getModel();
+            model.setRowCount(0);
+            
+            ArrayList<Object[]> rows = (ArrayList<Object[]>) response.getObject();
+            for (Object[] row : rows) {
+                model.addRow(row);
+            }
+        });
+        PlaneController.addObserver(PlaneObserver);
+        JtablesObserverController LocationObserver = new  JtablesObserverController(()->{
+            Response response = LocationControllerShowJtables.showAllLocations();
+            DefaultTableModel model = (DefaultTableModel) ShowLocationsTable.getModel();
+            model.setRowCount(0);
+            
+            ArrayList<Object[]> rows = (ArrayList<Object[]>) response.getObject();
+            for (Object[] row : rows) {
+                model.addRow(row);
+            }   
+        });
+        LocationController.addObserver(LocationObserver);
+
+        JtablesObserverController PassengerObserver = new  JtablesObserverController(()->{
+            Response response = PassengerControllerShowJtables.showAllPassengers();
+            DefaultTableModel model = (DefaultTableModel) ShowPassengerTable.getModel();
+            model.setRowCount(0);
+            
+            ArrayList<Object[]> rows = (ArrayList<Object[]>) response.getObject();
+            for (Object[] row : rows) {
+                model.addRow(row);
+            }
+        });
+        PassengerController.addObserver(PassengerObserver);
         updateBoxes();
         this.setBackground(new Color(0, 0, 0, 0));
         this.setLocationRelativeTo(null);

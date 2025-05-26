@@ -18,7 +18,7 @@ public class PassengerControllerUpdateJson {
         PassengerStorage passengerS = PassengerStorage.getInstance();
         
         ArrayList<Passenger> passengers = passengerS.getPassengers();
-        passengers.sort(Comparator.comparing(Passenger::getId));
+        
         ArrayList<String> ids = new ArrayList<>();
         
         for(Passenger p : passengers){

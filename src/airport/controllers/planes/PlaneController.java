@@ -4,6 +4,7 @@
  */
 package airport.controllers.planes;
 
+import airport.controllers.JtablesObserverController;
 import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
 import airport.models.plane.Plane;
@@ -62,5 +63,9 @@ public class PlaneController {
             Response r = new Response("Unexpected error", Status.Internal_Server_Error);
             return r.clone();
         }
+    }
+    
+    public static void addObserver(JtablesObserverController observer){
+            PlaneStorage.getInstance().addObserver(observer);
     }
 }

@@ -4,6 +4,7 @@
  */
 package airport.controllers.flights;
 
+import airport.controllers.JtablesObserverController;
 import airport.controllers.utils.Response;
 import airport.controllers.utils.Status;
 import airport.models.flights.Flight;
@@ -231,6 +232,7 @@ public class FlightController {
                 }
                 FlightCalculateTimes.delay(flight, hoursInt, minutesInt);
             }
+            storage.notifyA();
             Response r = new Response("The flight has been delayed", Status.Ok);
             return r.clone();
         }catch (Exception ex) {
@@ -241,5 +243,8 @@ public class FlightController {
         
     }
     
+    public static void addObserver(JtablesObserverController observer){
+            FlightStorage.getInstance().addObserver(observer);
+    }
     
 }

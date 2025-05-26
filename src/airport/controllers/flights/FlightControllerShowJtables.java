@@ -25,7 +25,7 @@ public class FlightControllerShowJtables {
         ArrayList<Flight> flights = storage.getFlights();
         
         
-        flights.sort(Comparator.comparing(Flight::getId));
+        
         ArrayList<Object[]> data = new ArrayList<>();
         for (Flight f : flights) {
             data.add(new Object[]{

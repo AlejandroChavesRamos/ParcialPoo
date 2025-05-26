@@ -6,17 +6,19 @@ package airport.models.storage;
 
 import airport.models.flights.Flight;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
  * @author alejo
  */
-public class FlightStorage {
+public class FlightStorage extends Observable{
     private ArrayList<Flight> flights = new ArrayList<>();
 
     private static FlightStorage instance;
 
     public ArrayList<Flight> getFlights(){
+        flights.sort(Comparator.comparing(Flight::getId));
         return flights;
     }
 
@@ -27,13 +29,16 @@ public class FlightStorage {
         return instance;
     }
 
-
+    public void notifyA(){
+        notifyObservers();
+    }
     public boolean AddFlight(Flight flight){
         for (Flight f : this.flights) {
             if (f.getId().equals(flight.getId())) {
                 return false;
             }
         }
+        notifyObservers();
         this.flights.add(flight);
         return true;
 

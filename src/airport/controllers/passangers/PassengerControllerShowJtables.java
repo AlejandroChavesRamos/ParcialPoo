@@ -22,7 +22,7 @@ public class PassengerControllerShowJtables {
         ArrayList<Passenger> passengers = storage.getPassengers();
         
         
-        passengers.sort(Comparator.comparing(Passenger::getId));
+        
         ArrayList<Object[]> data = new ArrayList<>();
         for (Passenger p : passengers) {
             data.add(new Object[]{
